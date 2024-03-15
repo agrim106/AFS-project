@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Twitter Home Page</title>
+    <style>
+        /* General styles */
+        ::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            color: #333;
+            overflow-x: hidden;
+            /* Add this line to prevent horizontal overflow */
+        }
+
+        header {
+            background-color: #1da1f2;
+            color: white;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logout-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid white;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: flex;
+            width: 90%;
+            /* Set main container width to 100% */
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 15px;
+            justify-content: center;
+            gap: 30px;
+            height: 100vh;
+            overflow: scroll;
+
+        }
+
+        .middle-section {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* position: relative; */
+        }
+
+        .left-section {
+            width: 20%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            height: 100vh;
+            top: 0;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+        }
+
+        .search-box {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .search-button:hover {
+            background-color: #1471b7;
+        }
+
+        .right-section {
+            width: 20%;
+            /* Take up twice as much space as left section */
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            height: 100vh;
+            top: 0;
+
+        }
+
+        .upper-part {
+            flex-wrap: wrap;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .navigation-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            /* Add this line to wrap the navigation items */
+        }
+
+        .navigation-list a {
+            padding: 8px;
+            text-decoration: none;
+            color: #1da1f2;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+
+        .navigation-list li {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #e1f5fe;
+            transition: background-color 0.3s ease;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navigation-list li:hover,
+        a:hover {
+            background-color: #b3e0f2;
+            cursor: pointer;
+        }
+
+        .tweet-box {
+            margin-top: 20px;
+            width: 90%;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .tweet-button {
+            background-color: #1da1f2;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .tweet-button:hover {
+            background-color: #1471b7;
+        }
+
+        .tweet {
+            width: 90%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .tweet-content {
+            font-size: 14px;
+            color: #6e6969;
+
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .timestamp {
+            color: #777;
+            font-size: 10px;
+        }
+
+        .tweets-container {
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 50px;
+        }
+
+        .tweets-section {
+            margin-top: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tweet-display-title {
+            text-align: center;
+        }
+
+        /* CSS to ensure consistent sizing of images within the slider */
+        .slider {
+            width: 100%;
+            /* Ensure slider takes full width */
+            overflow: hidden;
+            /* Hide overflow to prevent multiple images from showing */
+        }
+
+        .slider img {
+            width: 100%;
+            /* Make images fill the width of the slider */
+            height: 300px;
+            /* Set a fixed height for all images */
+            object-fit: cover;
+
+            /* Ensure images maintain aspect ratio and cover the entire space */
+        }
+
+
+        .slick-slide {
+            display: none;
+        }
+
+        .slick-active {
+            display: block;
+        }
+
+        .slick-next {
+            right: 0;
+            background-color: black;
+        }
+
+        .content {
+            /* CSS to wrap text and prevent overflow within a div */
+            width: 95%;
+            /* Adjust width of the container as needed */
+            height: auto;
+            /* Adjust height of the container as needed */
+            overflow: auto;
+            /* Add scrollbar if content overflows */
+            padding: 10px;
+            /* Add padding to the container */
+            border: 1px solid #ccc;
+            /* Add border for visibility */
+            word-wrap: break-word;
+            /* Wrap long words onto the next line */
+
+        }
+
+        .cross {
+            position: absolute;
+            right: 40px;
+            top: 10px;
+            font-size: x-large;
+        }
+
+        .cross:hover {
+            cursor: pointer;
+        }
+
+        .post {
+            display: none;
+            background-color: #79c5f4;
+            padding: 40px;
+            border-radius: 10px;
+            width: 80%;
+            height: 300px;
+            position: absolute;
+            top: 20%;
+            z-index: 1;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            width: 40%;
+        }
+
+        .post form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post form button {
+            width: 28%;
+        }
+
+        .profile-section {}
+
+        .profile-section .name {
+            text-align: left;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            padding: 20px 0px;
+        }
+
+        .name span {
+            margin-left: 20px;
+        }
+
+        .banner-section {
+            width: 100%;
+            height: 250px;
+            background-color: grey;
+            position: relative;
+        }
+
+        .banner-img,
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: black;
+            position: absolute;
+            bottom: -30%;
+            border: 2px solid lightblue;
+            left: 20px;
+        }
+
+        .user-info {
+            margin-top: 12%;
+            width: 100%;
+        }
+
+        .profile-nav .navigation-list {
+            display: flex;
+            margin: 0;
+            gap: 10px;
+            flex-direction: row;
+            justify-content: space-evenly;
+            background-color: aliceblue;
+            border-radius: 10px;
+        }
+
+        .profile-nav .navigation-list li {
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .profile-nav .navigation-list a {
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .full-name p:nth-child(1) {
+            font-size: 24px;
+        }
+
+        .full-name p,
+        .doj p {
+            margin: 0 24px;
+        }
+
+        .full-name,
+        .doj {
+            margin-bottom: 20px;
+        }
+
+        .edit-profile {
+            position: absolute;
+            right: 0;
+            background-color: #79c5f4;
+            padding: 15px;
+            border-radius: 30px;
+            color: #1471b7;
+            text-decoration: underline;
+        }
+
+        .edit-profile:hover {
+            cursor: pointer;
+        }
+
+        .nav-result {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .user-engagement {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0px 0px 15px;
+        }
+
+        .like {
+            color: gray;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .like,
+        .comment:hover {
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .like a:hover {
+            color: #1da1f2;
+            background-color: white;
+        }
+
+        .comment {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .like a {
+            text-decoration: none;
+            color: gray;
+        }
+
+        /* .like-msg {
+            color: cornflowerblue;
+            position: absolute;
+            bottom: 30px;
+            padding: 12px;
+            border-radius: 15px;
+            background-color: aliceblue;
+            transition:top 2s
+        } */
+
+        .like-msg {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            background-color: #b3e0f2;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideUpAndFade 5s ease forwards;
+        }
+
+        .comment-result {
+            width: 80%;
+            background-color: whitesmoke;
+            border: 3px solid #74c3ff;
+            padding: 40px;
+            margin: 0 auto;
+            position: absolute;
+            top: 15%;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            z-index: 1;
+        }
+
+        .comment-display {
+            height: 130px;
+            overflow: scroll;
+            border: 1px solid gray;
+            padding: 15px;
+        }
+
+        .comment-container {
+            width: 100%;
+            display: flex;
+
+        }
+
+        @keyframes slideUpAndFade {
+            0% {
+                opacity: 0.5;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-80px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+        }
+
+        .user-comment {
+            border: 2px solid gray;
+            font-size: 12px;
+            padding: 10px;
+        }
+
+        .comment-display {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .slide-video {
+            object-position: center;
+            /* Maintain the aspect ratio */
+        }
+
+        .slide-video {
+            width: 550px;
+            height: 100%;
+        }
+    </style>
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+    <!-- Slick JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+    <!-- Slick JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        async function getengagement(tid, likeid, commentid) {
+            try {
+                const response = await fetch(`/getlikes/${tid}`);
+                const like = await response.json();
+                document.getElementById(likeid).textContent = `${like[0].like_count}`;
+
+
+            } catch (error) {
+                console.log(error);
+            }
+            try {
+                const response1 = await fetch(`/getcomments/${tid}`);
+                const comment = await response1.json();
+                document.getElementById(commentid).textContent = `${comment[0].comment_count} comments`;
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        // Other functions and event listeners
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome, <%=username%>
+        </h1>
+        <a href="/logout" class="logout-link">Logout</a>
+    </header>
+
+    <div class="main-container">
+        <% let comment=[] %>
+            <!-- Left Section -->
+            <div class="left-section">
+                <img src="https://static.dezeen.com/uploads/2023/07/x-logo-twitter-elon-musk_dezeen_2364_col_0.jpg"
+                    alt="Twitter Logo" class="logo">
+                <!-- Navigation Links -->
+                <ul class="navigation-list">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li id="post"><a> Post</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+            <% if(profile===false){ %>
+                <div class="middle-section">
+                    <!-- Tweet Box -->
+                    <div class="post" id="post-div">
+                        <div class="cross" id="cross">X</div>
+                        <form action="/tweet-submit" method="post" enctype="multipart/form-data">
+                            <label for="tweet">Tweet:</label>
+                            <textarea id="tweet" name="tweet" rows="4" placeholder="What's happening?"
+                                required></textarea>
+                            <div id="image-container1">
+                                <label>Upload Images (optional):</label><br>
+                                <input type="file" name="images[]"><br>
+                            </div>
+                            <button type="button" onclick="addImageInput1()">Add Another Image</button>
+                            <button type="submit" class="tweet-button">Tweet</button>
+                        </form>
+                    </div>
+                    <div class="tweet-box">
+                        <form action="/tweet-submit" method="post" enctype="multipart/form-data">
+                            <label for="tweet">Tweet:</label>
+                            <textarea id="tweet" name="tweet" rows="4" placeholder="What's happening?"
+                                required></textarea>
+                            <div id="image-container">
+                                <label>Upload Images (optional):</label><br>
+                                <input type="file" name="images[]"><br>
+                            </div>
+                            <button type="button" onclick="addImageInput()">Add Another Image</button>
+                            <button type="submit" class="tweet-button">Tweet</button>
+                        </form>
+
+                        <div style="color:#45a049;font-size: 25px;">
+                            <%=mssg%>
+                        </div>
+                    </div>
+                    <div class="tweets-section">
+                        <h2 class="tweet-display-title">Tweets</h2>
+                        <div class="tweets-container">
+                            <% if (result_tweets.length> 0) { %>
+                                <% for (let i=0; i < result_tweets.length; i++) { %>
+                                    <div class="tweet">
+                                        <div class="tweet-header">
+                                            <div class="tweet-info">
+                                                <span class="username">
+                                                    <%= result_tweets[i].user_username %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="tweet-content">
+                                            <p class="content">
+                                                <%= result_tweets[i].content %>
+                                            </p>
+                                        </div>
+                                        <% if (result_tweets[i].images && result_tweets[i].images.length> 0) { %>
+                                            <!-- Display images or videos -->
+                                            <div class="tweet-images-slider">
+                                                <div class="slider">
+                                                    <% let imageArray=result_tweets[i].images.split(','); %>
+                                                        <% for (let j=0; j < imageArray.length; j++) { %>
+                                                            <% if (imageArray[j].trim().includes('.mp4')) { %>
+                                                                <!-- Display video -->
+                                                                <div class="video-contain">
+                                                                    <video class="slide-video" controls>
+                                                                        <source src="/<%= imageArray[j].trim() %>"
+                                                                            type="video/mp4">
+                                                                        Your browser does not support the video tag.
+                                                                    </video>
+                                                                </div>
+                                                                <% } else { %>
+                                                                    <!-- Display image -->
+                                                                    <div><img class="slide-img"
+                                                                            src="/<%= imageArray[j].trim() %>"
+                                                                            alt="Tweet Image"></div>
+                                                                    <% } %>
+                                                                        <% } %>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                                <script>
+                                                    getengagement('<%= result_tweets[i].tid %>', 'like-count-<%= i %>', 'comment-count-<%= i %>');
+                                                </script>
+                                                <div class="user-engagement">
+                                                    <div class="like">
+                                                        <div class="like-msg" id="like-msg-<%= i %>">you liked <%=
+                                                                result_tweets[i].user_username %>
+                                                                's post!!</div>
+                                                        <span class="like-count" id="like-count-<%= i %>">0</span>
+                                                        <a href="/insert_like?tweetid=<%= result_tweets[i].tid %>"
+                                                            onclick="like('<%= result_tweets[i].tid %>', '<%= i %>', event)">Like</a>
+                                                    </div>
+                                                    <div class="comment"
+                                                        onclick="showcomment('comment-box-<%= i %>','<%= result_tweets[i].tid %>')">
+                                                        View
+                                                        Comments
+                                                    </div>
+                                                </div>
+                                                <div class="comment-container">
+                                                    <div class="comment-result" id="comment-box-<%= i %>">
+                                                        <div class="cross"
+                                                            onclick="showcomment('comment-box-<%= i %>','<%= result_tweets[i].tid %>')">
+                                                            X</div>
+                                                        <span class="comment-count" id="comment-count-<%= i %>">0
+                                                            comments</span>
+                                                        <div class="comment-display">hey here comments will display!!
+                                                        </div>
+                                                        <div class="addcomment">
+                                                            <form action="/comment-submit/<%= result_tweets[i].tid %>"
+                                                                method="post">
+                                                                <textarea id="comment" name="comment" rows="2"
+                                                                    placeholder="Add a Comment!!" required></textarea>
+                                                                <button type="submit"
+                                                                    class="tweet-button">Comment</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <p class="no-tweets-message">No tweets posted</p>
+                                            <% } %>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <% } else{ %>
+                    <div class="middle-section profile-section">
+                        <div class="post" id="post-div">
+                            <div class="cross" id="cross">X</div>
+                            <form action="/tweet-submit" method="post" enctype="multipart/form-data">
+                                <label for="tweet">Tweet:</label>
+                                <textarea id="tweet" name="tweet" rows="4" placeholder="What's happening?"
+                                    required></textarea>
+                                <div id="image-container1">
+                                    <label>Upload Images (optional):</label><br>
+                                    <input type="file" name="images[]"><br>
+                                </div>
+                                <button type="button" onclick="addImageInput1()">Add Another Image</button>
+                                <button type="submit" class="tweet-button">Tweet</button>
+                            </form>
+                        </div>
+                        <div class="post" id="edit-profile" style="height:auto">
+                            <div class="cross" id="cross-edit">X</div>
+                            <form action="/edit-profile" method="post" enctype="multipart/form-data">
+                                <div id="image-container1">
+                                    <label>Upload profile image:</label>
+                                    <input type="file" name="profile-pic"><br>
+                                    <label>Upload banner image:</label>
+                                    <input type="file" name="banner-pic"><br>
+                                </div>
+                                <label for="bio">Bio:</label>
+                                <textarea id="bio" name="bio" rows="4" placeholder="Bio"><%=bio%></textarea>
+                                <label for="dob">DOB:</label>
+                                <input type="date" name="dob" value=<%=dob%>><br>
+                                <button type="submit" class="tweet-button">Save</button>
+                            </form>
+                        </div>
+                        <div class="name"><span>
+                                <%= fullname %>
+                            </span></div>
+                        <div class="banner-section">
+                            <img class="banner-img" src="/<%=banner %>" alt="">
+                            <div class="profile"><img class="profile-img" src="/<%=profilepic%>" alt=""></div>
+                            <div class="edit-profile" id="edit">Edit profile</div>
+                        </div>
+                        <div class="user-info">
+                            <div class="full-name">
+                                <p>
+                                    <%= fullname %>
+                                </p>
+                                <p>@<%= username %>
+                                </p>
+                                <p style="margin-top:10px">
+                                    <%= bio %>
+                                </p>
+                            </div>
+                            <div class="doj">
+                                <p style="font-size:14px"> Joined <%= dor %>
+                                </p>
+                            </div>
+                            <div class="profile-nav">
+                                <ul class="navigation-list">
+                                    <li><a href="/user-posts">Posts</a></li>
+                                    <li><a href="/followers">followers</a></li>
+                                    <li><a href="/following">following</a></li>
+                                    <li><a href="/likes">Likes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <% if(nav==="post" ){ %>
+                            <div class="nav-result">
+                                <div class="tweets-section">
+                                    <h2 class="tweet-display-title">Tweets</h2>
+                                    <div class="tweets-container">
+                                        <% if (result_tweets.length> 0) { %>
+                                            <% for (let i=0; i < result_tweets.length; i++) { %>
+                                                <div class="tweet">
+                                                    <div class="tweet-header">
+                                                        <div class="tweet-info">
+                                                            <span class="username">
+                                                                <%= result_tweets[i].user_username %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tweet-content">
+                                                        <p class="content">
+                                                            <%= result_tweets[i].content %>
+                                                        </p>
+                                                    </div>
+                                                    <% if (result_tweets[i].images && result_tweets[i].images.length> 0)
+                                                        { %>
+                                                        <div class="tweet-images-slider">
+                                                            <div class="slider">
+                                                                <% let imageArray=result_tweets[i].images.split(','); %>
+                                                                    <% for (let j=0; j < imageArray.length; j++) { %>
+                                                                        <% if (imageArray[j].trim().includes('.mp4')) {
+                                                                            %>
+                                                                            <video class="slide-video" controls>
+                                                                                <source
+                                                                                    src="/<%= imageArray[j].trim() %>"
+                                                                                    type="video/mp4">
+                                                                                Your browser does not support the video
+                                                                                tag.
+                                                                            </video>
+                                                                            <% } else { %>
+                                                                                <div><img class="slide-img"
+                                                                                        src="/<%= imageArray[j].trim() %>"
+                                                                                        alt="Tweet Image"></div>
+                                                                                <% } %>
+                                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                            <script>
+                                                                getengagement('<%= result_tweets[i].tid %>', 'like-count-<%= i %>', 'comment-count-<%= i %>');
+                                                            </script>
+                                                            <div class="user-engagement">
+                                                                <div class="like">
+                                                                    <div class="like-msg" id="like-msg-<%= i %>">you
+                                                                        liked <%= result_tweets[i].user_username %>
+                                                                            's post!!</div>
+                                                                    <span class="like-count"
+                                                                        id="like-count-<%= i %>">0</span>
+                                                                    <a href="/insert_like?tweetid=<%= result_tweets[i].tid %>"
+                                                                        onclick="like('<%= result_tweets[i].tid %>', '<%= i %>', event)">Like</a>
+                                                                </div>
+                                                                <div class="comment"
+                                                                    onclick="showcomment('comment-box-<%= i %>','<%= result_tweets[i].tid %>')">
+                                                                    View
+                                                                    Comments
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-container">
+                                                                <div class="comment-result" id="comment-box-<%= i %>">
+                                                                    <div class="cross"
+                                                                        onclick="showcomment('comment-box-<%= i %>','<%= result_tweets[i].tid %>')">
+                                                                        X</div>
+                                                                    <span class="comment-count"
+                                                                        id="comment-count-<%= i %>">0
+                                                                        comments</span>
+                                                                    <div class="comment-display">hey here comments will
+                                                                        display!!</div>
+                                                                    <div class="addcomment">
+                                                                        <form
+                                                                            action="/comment-submit/<%= result_tweets[i].tid %>"
+                                                                            method="post">
+                                                                            <textarea id="comment" name="comment"
+                                                                                rows="2" placeholder="Add a Comment!!"
+                                                                                required></textarea>
+                                                                            <button type="submit"
+                                                                                class="tweet-button">Comment</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                <% } %>
+                                                    <% } else { %>
+                                                        <p class="no-tweets-message">No tweets posted</p>
+                                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } else if(nav==="followers" ){ %>
+                                <div class="nav-result">
+                                    <div class="search-result">
+                                        <% if (follower && follower.length) { %>
+                                            <h2 style="margin-left: .5em; color: #1da1f2; font-size: 1.5em;">Followers:
+                                            </h2>
+                                            <% for (let i=0; i < follower.length; i++) { %>
+                                                <div
+                                                    style="display: flex;justify-content: center;align-items: center;gap: 20px; margin-left: 0.8em; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 10px; margin-bottom: 10px;">
+                                                    <p style="margin: 0; font-size: 1.2em; color: #333;">
+                                                        <%= follower[i].username %>
+                                                    </p>
+                                                </div>
+                                                <% } %>
+                                                    <% } else { %>
+                                                        <p style="color: #777;margin-left: 0.8em;font-size: 18px;">
+                                                            <% if (nav==="followers" ) { %>0 followers.<% } %>
+                                                        </p>
+                                                        <% } %>
+                                    </div>
+                                </div>
+                                <% } else if(nav==="following" ){ %>
+                                    <div class="nav-result">
+                                        <div class="search-result">
+                                            <% if (follower && follower.length) { %>
+                                                <h2 style="margin-left: .5em; color: #1da1f2; font-size: 1.5em;">
+                                                    Following:
+                                                </h2>
+                                                <% for (let i=0; i < follower.length; i++) { %>
+                                                    <div
+                                                        style="display: flex;justify-content: center;align-items: center;gap: 20px; margin-left: 0.8em; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 10px; margin-bottom: 10px;">
+                                                        <p style="margin: 0; font-size: 1.2em; color: #333;">
+                                                            <%= follower[i].username %>
+                                                        </p>
+                                                    </div>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <p style="color: #777;margin-left: 0.8em;font-size: 18px;">
+                                                                <% if (nav==="following" ) { %>0 following.<% } %>
+                                                            </p>
+                                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <% } else if(nav==="likes" ){ %>
+                                        <div class="nav-result">
+                                            <div class="search-result"
+                                                style="font-size:large;text-align: center;margin: 10px;font-family:'Times New Roman', Times, serif;font-weight: bold;">
+                                                Total
+                                                likes on profile:
+                                                <%=like%>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                    </div>
+                    <% } %>
+
+                        <div class="right-section">
+                            <div class="upper-part">
+                                <%let search="" %>
+                                    <%if (profile===false){%>
+                                        <%search=" /search/home"%>
+                                            <%} else{%>
+                                                <%search=" /search/profile"%>
+                                                    <%}%>
+                                                        <form action="<%=search%>" method="get">
+                                                            <input type="text" name="search" placeholder="Search"
+                                                                class="search-box">
+                                                            <button type="submit" class="search-button">Search</button>
+                                                        </form>
+                            </div>
+                            <div class="search-result">
+                                <% if (result && result.length) { %>
+                                    <h2 style="margin-left: .5em; color: #1da1f2; font-size: 1.5em;">Search Results:
+                                    </h2>
+                                    <% for (let i=0; i < result.length; i++) { %>
+                                        <div
+                                            style="display: flex;justify-content: center;align-items: center;gap: 20px; margin-left: 0.8em; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 10px; margin-bottom: 10px;">
+                                            <p style="margin: 0; font-size: 1.2em; color: #333;">
+                                                <%= result[i].username %>
+                                            </p>
+                                            <a href="/follow/<%= result[i].uid %>"
+                                                style="text-decoration: none; display: inline-block; padding: 5px 10px; margin-top: 5px; background-color: #1da1f2; color: #fff; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; transition: background-color 0.3s ease;">Follow</a>
+                                        </div>
+                                        <% } %>
+                                            <% } else { %>
+                                                <p style="color: #777;margin-left: 0.8em;font-size: 18px;">
+                                                    <% if (search===true) { %>No users found.<% } %>
+                                                </p>
+                                                <% } %>
+                            </div>
+                        </div>
+    </div>
+
+    <script>
+        function addImageInput() {
+            const container = document.getElementById(' image-container'); const input = document.createElement('input');
+            input.type = 'file'; input.name = 'images[]';
+            container.appendChild(input);
+        } function addImageInput1() {
+            const
+                container = document.getElementById('image-container1'); const
+                    input = document.createElement('input'); input.type = 'file';
+            input.name = 'images[]'; container.appendChild(input);
+        }
+        $(document).ready(function () {
+            $('.slider').slick({
+                slidesToShow: 1, //Display only one slide at a time 
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                variableWidth: true, // Allow variable width for slides
+            });
+        });
+        function togglePostForm() {
+            const postdiv = document.getElementById('post-div'); //Toggle the display property of the post form
+            postdiv.style.display = postdiv.style.display === 'none' ? 'block' : 'none';
+        }
+        function toggleEditForm() {
+            const postdiv = document.getElementById('edit-profile'); // Toggle the displayproperty of the post form
+            postdiv.style.display = postdiv.style.display === 'none' ? 'block' : 'none';
+        }
+        async function showcomment(commentid, tid) {
+            const postdiv = document.getElementById(commentid); // Toggle the display property of the post form
+            postdiv.style.display = postdiv.style.display === 'none' ? 'flex' : 'none';
+            try {
+                const response = await fetch(`/getcomment/${tid}`);
+                const comments = await response.json(); // Await response.json() to get the actual data
+                console.log(comments.length);
+                // Select the comment display div
+                const commentDisplayDiv = document.querySelector(`#${commentid} .comment-display`);
+
+                // Clear existing content
+                commentDisplayDiv.innerHTML = '';
+
+                // Append comments to the comment display div
+                if (comments.length > 0) {
+                    comments.forEach(comment => {
+                        const commentElement = document.createElement('div');
+                        commentElement.classList.add('user-comment');
+                        commentElement.textContent = `${comment.username}: ${comment.comment}`; // Display username and comment content
+                        commentDisplayDiv.appendChild(commentElement);
+                    });
+                } else {
+                    const commentElement = document.createElement('div');
+                    commentElement.textContent = "No Comments on this post!"; // Display username and comment content
+                    commentDisplayDiv.appendChild(commentElement);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        document.getElementById('post').addEventListener('click',
+            togglePostForm);
+        document.getElementById('cross').addEventListener('click',
+            togglePostForm);
+        document.getElementById('cross-edit').addEventListener('click',
+            toggleEditForm);
+        document.getElementById('edit').addEventListener('click',
+            toggleEditForm);
+
+        async function like(tweetid, index, event) {
+            event.preventDefault();
+            try {
+                // Perform the AJAX request to the route handler for inserting likes data
+                const response = await fetch(`/insert_like?tweetid=${tweetid}`);
+                if (!response.ok) {
+                    throw new Error('Failed to insert like data');
+                }
+
+                // Display the like message and trigger animation
+                const likeMsg = document.getElementById(`like-msg-${index}`);
+                likeMsg.style.display = 'block';
+                setTimeout(function () {
+                    likeMsg.style.display = 'none';
+                }, 2000); // Adjust the delay time as needed
+            } catch (error) {
+                console.error(error);
+                // Handle error if necessary
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
